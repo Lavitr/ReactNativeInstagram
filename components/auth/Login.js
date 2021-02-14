@@ -27,7 +27,7 @@ export class Login extends Component {
 
 	render() {
 		return (
-			<View>
+			<View style={{margin: 40}}>
 				<TextInput
 					placeholder="email"
 					onChangeText={(email) => {

@@ -33,7 +33,7 @@ export class Register extends Component {
 
 	render() {
 		return (
-			<View>
+			<View style={{margin:40}}>
 				<TextInput
 					placeholder="name"
 					onChangeText={(name) => {

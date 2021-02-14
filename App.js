@@ -7,11 +7,15 @@ import LandingScreen from "./components/auth/Landing";
 import Register from "./components/auth/Register";
 import MainScreen from "./components/Main";
 import Login from "./components/auth/Login";
-import * as firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./redux/reducers";
 import thunk from "redux-thunk";
+import AddScreen from "./components/main/Add";
+import SaveScreen from "./components/main/Save";
+
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const firebaseConfig = {
@@ -90,7 +94,26 @@ export default class App extends Component {
 		}
 		return (
 			<Provider store={store}>
-				<MainScreen />
+				<NavigationContainer>
+					<Stack.Navigator initialRouteName="Main">
+						<Stack.Screen
+							name="Main"
+							component={MainScreen}
+							options={{ headerShown: false }}
+						/>
+						<Stack.Screen
+							name="Add"
+							component={AddScreen}
+							options={{ headerShown: false }}
+							navigation={this.props.navigation}
+						/>
+						<Stack.Screen
+							name="Save"
+							component={SaveScreen}
+							options={{ headerShown: false }}
+						/>
+					</Stack.Navigator>
+				</NavigationContainer>
 			</Provider>
 		);
 	}

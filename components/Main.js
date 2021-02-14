@@ -3,6 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchUser } from "../redux/actions/index";
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import FeedScreen from './main/Feed'
+import ProfileScreen from './main/Profile'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
+const Tab = createMaterialBottomTabNavigator();
+const EmptyScreen = () => null
 
 export class Main extends Component {
 	componentDidMount() {
@@ -10,14 +18,55 @@ export class Main extends Component {
 	}
 
 	render() {
-		const { currentUser } = this.props;
-		return currentUser ? (
-			<View style={{ flex: 1, justifyContent: "center" }}>
-				<Text>User logged in </Text>
-				<Text>Name: {currentUser.name}</Text>
-				<Text>Email: {currentUser.email}</Text>
-			</View>
-		) : null;
+		return (
+			<Tab.Navigator initialRouteName="Feed" labeled={false}>
+				<Tab.Screen
+					name="Feed"
+					component={FeedScreen}
+					options={{
+						tabBarIcon: ({ color, size }) => (
+							<MaterialCommunityIcons
+								name="home"
+								color={color}
+								size={26}
+							/>
+						),
+					}}
+				/>
+				<Tab.Screen
+					name="AddContainer"
+					listeners={({navigation}) => ({
+						tabPress: event => {
+							event.preventDefault()
+							navigation.navigate("Add")
+						}
+					})}
+					component={EmptyScreen}
+					options={{
+						tabBarIcon: ({ color, size }) => (
+							<MaterialCommunityIcons
+								name="plus-box"
+								color={color}
+								size={26}
+							/>
+						),
+					}}
+				/>
+				<Tab.Screen
+					name="Profile"
+					component={ProfileScreen}
+					options={{
+						tabBarIcon: ({ color, size }) => (
+							<MaterialCommunityIcons
+								name="account-circle"
+								color={color}
+								size={26}
+							/>
+						),
+					}}
+				/>
+			</Tab.Navigator>
+		); 
 	}
 }
 

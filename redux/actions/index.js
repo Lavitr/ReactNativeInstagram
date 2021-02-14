@@ -17,7 +17,7 @@ export function fetchUser() {
 						currentUser: snapshot.data(),
 					});
 				} else {
-					console.log("does not exist");
+					console.log("user does not exist");
 				}
 			});
 	};
