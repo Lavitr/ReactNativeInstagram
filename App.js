@@ -111,6 +111,8 @@ export default class App extends Component {
 							name="Save"
 							component={SaveScreen}
 							options={{ headerShown: false }}
+							navigation={this.props.navigation}
+
 						/>
 					</Stack.Navigator>
 				</NavigationContainer>
