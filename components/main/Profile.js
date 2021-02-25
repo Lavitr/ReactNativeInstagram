@@ -1,24 +1,39 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { connect } from 'react-redux'
+import firebase from 'firebase'
 
 
 export function Profile(props) {
-	const { currentUser, posts } = props
-	console.log('snapshot', posts)
-	console.log('currentUser', currentUser)
+	const [userPost, setUserPost] = useState([])
+	const [user, setUser] = useState(null)
+
+
+	useEffect(() => {
+		const { currentUser, posts } = props
+		console.log('snapshot', posts)
+		console.log('currentUser', currentUser)
+		if (props.route.params.uid === firebase.auth().currentUser.uid) {
+			setUser(currentUser)
+			setUserPost(posts)
+		}
+	})
+
+	if (user === null) {
+		return <Text>'EMPTY</Text>
+	}
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.containerInfo}>
-				<Text>{currentUser.name}</Text>
-				<Text>{currentUser.email}</Text>
+				<Text>{user.name}</Text>
+				<Text>{user.email}</Text>
 			</View>
 			<View style={styles.containerGalery}>
 				<FlatList
 					numColumns={3}
 					horizontal={false}
-					data={posts}
+					data={userPost}
 					renderItem={
 						({ item }) => (
 							<View style={styles.containerImage}>
