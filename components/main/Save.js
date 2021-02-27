@@ -21,7 +21,6 @@ export default function Save(props) {
 		const picturePath = `post/${
 			firebase.auth().currentUser.uid
 		}/${Math.random().toString(36)}`;
-		console.log("picturePath", picturePath);
 
 		const task = firebase.storage().ref().child(picturePath).put(blob);
 
@@ -32,7 +31,6 @@ export default function Save(props) {
 		const taskCompleted = () => {
 			task.snapshot.ref.getDownloadURL().then((snapshot) => {
 				savePostData(snapshot, caption)
-				console.log("snapshot", snapshot);
 			});
 		};
 

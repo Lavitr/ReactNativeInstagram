@@ -27,20 +27,8 @@ export default function App({navigation}) {
 		return <Text>No access to camera</Text>;
 	}
 
-	// const takePicture = async () => {
-	// 	if (camera) {
-	// 		console.log('1')
-	// 		camera.resumePreview()
-	// 		console.log('33')
-
-	// 		const data = await camera.takePictureAsync();
-	// 		console.log(data.uri);
-	// 	}
-	// };
-
 	const takePicture = async () => {
 		if (camera) {
-			console.log('takePicture')
 		  const options = { quality: 0.5, base64: true };
 		  try {
 			camera.resumePreview();
